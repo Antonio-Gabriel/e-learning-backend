@@ -1,0 +1,1107 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "e-Learning Documentation",
+    "description": "This is an API e-Learning",
+    "version": "1.0.0",
+    "contact": {
+      "email": "herlanderbento19@gmil.com"
+    }
+  },
+  "paths": {
+    "/sessions": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "Authentication user",
+        "description": "Authentication user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Email or password incorrect!"
+          }
+        }
+      }
+    },
+    "/password/forgot": {
+      "post": {
+        "tags": ["Password"],
+        "summary": "forgot password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "forgot successfully"
+          },
+          "404": {
+            "description": "User does not exists!"
+          }
+        }
+      }
+    },
+    "/password/reset": {
+      "post": {
+        "tags": ["Password"],
+        "summary": "reset password",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  },
+                  "confirmPassword": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reset password successfully"
+          },
+          "400": {
+            "description": "Token invalid!"
+          }
+        }
+      }
+    },
+
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create users",
+        "description": "Create a users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "User already exists!"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "security": [{ "bearerAuth": [] }],
+        "description": "List all users",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/users/paginated": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "List paginated users",
+        "description": "List paginated users",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/users/profile/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Profile user",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Me",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/users/search": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Search",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "bi": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "county": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "province": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated"
+          },
+          "400": {
+            "description": "Identity card already exists"
+          },
+          "404": {
+            "description": "User not found!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "delete users",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "User not found!"
+          }
+        }
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Upload avatar",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar upload successfully"
+          }
+        }
+      }
+    },
+    "/users/passwordChange": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Password change",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "confirmPassword": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "password updated successfully"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Create  category",
+        "description": "Create a new Category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "category name sample",
+                "description": "Category description sample"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Category already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Categories"],
+        "summary": "List all categories",
+        "description": "List all category",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "put": {
+        "tags": ["Categories"],
+        "summary": "Update category",
+        "description": "Update category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "category name sample",
+                "description": "Category description sample"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "category updated successfully"
+          },
+          "400": {
+            "description": "Category already exists"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Categories"],
+        "summary": "Delete category",
+        "description": "Delete an category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted successfully"
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    },
+    "/courses": {
+      "post": {
+        "tags": ["Courses"],
+        "summary": "Create course",
+        "description": "Create an course",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "course name sample",
+                "description": "course description sample",
+                "category_id": "category id sample"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Course created successful"
+          },
+          "400": {
+            "description": "Course already exists"
+          },
+          "404": {
+            "description": "Category does not exists!"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Courses"],
+        "summary": "List all courses",
+        "description": "List all courses",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "string"
+                      }
+                    },
+                    "modules": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "duration": {
+                        "type": "string"
+                      },
+                      "course_id": {
+                        "type": "string"
+                      },
+                      "image_url": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "put": {
+        "tags": ["Courses"],
+        "summary": "Update courses",
+        "description": "Update courses",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "example": {
+              "name": "course name sample",
+              "description": "course description sample",
+              "category_id": "category id sample"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Course created successful"
+          },
+          "400": {
+            "description": "Course already exists"
+          },
+          "404": {
+            "description": "Category does not exists!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Courses"],
+        "summary": "Delete course",
+        "description": "Delete course",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Course id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course deleted successful"
+          },
+          "404": {
+            "description": "Course not found"
+          }
+        }
+      }
+    },
+    "/courses/user": {
+      "post": {
+        "tags": ["Courses"],
+        "summary": "User make course",
+        "description": "User make course",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "course_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Course does not exists!"
+          }
+        }
+      }
+    },
+    "/lessons": {
+      "post": {
+        "tags": ["lessons"],
+        "summary": "Create an lesson",
+        "description": "Create an lesson",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "video": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "module_id": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Lessons already exists!"
+          },
+          "404": {
+            "description": "Module not found!"
+          }
+        }
+      },
+      "get": {
+        "tags": ["lessons"],
+        "summary": "List all lessons",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "module_id": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "string"
+                    },
+                    "video_url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/paginated": {
+      "get": {
+        "tags": ["lessons"],
+        "summary": "List paginated lessons",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "module_id": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "string"
+                    },
+                    "video_url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/{id}": {
+      "put": {
+        "tags": ["lessons"],
+        "summary": "Update lessons",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "module_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Lessons already exists!"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["lessons"],
+        "summary": "Upload videos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "video": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Lessons already exists!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["lessons"],
+        "summary": "delete lessons",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lessons deleted successfully"
+          },
+          "400": {
+            "description": "Lessons doesn't exists!"
+          }
+        }
+      }
+    },
+    "/modules": {
+      "post": {
+        "tags": ["Modules"],
+        "summary": "Create module",
+        "description": "Create a new module",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "course_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created success"
+          },
+          "400": {
+            "description": "Module already exists!"
+          },
+          "404": {
+            "description": "Course not found!"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Modules"],
+        "summary": "List all modules",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/modules/{id}": {
+      "put": {
+        "tags": ["Modules"],
+        "Summary": "Update a module",
+        "description": "Update a module",
+
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "string"
+                  },
+                  "course_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Modules updated successful"
+          },
+          "400": {
+            "description": "Module already exists"
+          },
+          "404": {
+            "description": "Course does not exists!"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Modules"],
+        "summary": "Upload image",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Modules already exists!"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Modules"],
+        "summary": "Delete Module",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Module id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Module deleted successful"
+          },
+          "404": {
+            "description": "Module not found"
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
